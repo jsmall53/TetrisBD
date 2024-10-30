@@ -24,14 +24,17 @@ namespace TetrisBD
 		m_image = GenImagePerlinNoise(m_ctx.Width, m_ctx.Height, 0, 0, 0.5);
 	}
 
-	void Renderer::RenderRect(int x, int y, int width, int height, Color color)
+	void Renderer::RenderRect(const int& x, const int& y, const int& width, const int& height, const Color& color)
 	{
 		ImageDrawRectangle(&m_image, x, y, width, height, color);
 	}
 
-	void Renderer::RenderBlock(Block block)
+	void Renderer::RenderBlock(const Block& block)
 	{
-
+		uint32_t colorId = block.colorId;
+		if (colorId > m_colors.size())
+			colorId = 0;
+		RenderRect(block.x, block.y, block.size - 1, block.size - 1, m_colors[colorId]);
 	}
 
 	SectionRect Renderer::GetPlayfieldRect()

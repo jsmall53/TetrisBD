@@ -1,6 +1,7 @@
 #pragma once
 #include <cinttypes>
 #include "tetromino.h"
+#include "block.h"
 
 namespace TetrisBD
 {

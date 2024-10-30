@@ -26,8 +26,7 @@ namespace TetrisBD
 		{
 			for (int col = 0; col < 10; col++)
 			{
-				const Block& blk = m_matrix[row][col];
-				pRenderer->RenderRect(blk.x, blk.y, blk.size - 1, blk.size - 1, RAYWHITE);
+				pRenderer->RenderBlock(m_matrix[row][col]);
 			}
 		}
 	}
