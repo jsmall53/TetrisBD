@@ -1,6 +1,5 @@
 #pragma once
 #include <cinttypes>
-#include "tetromino.h"
 #include "block.h"
 
 namespace TetrisBD
@@ -11,6 +10,8 @@ namespace TetrisBD
 		void Init();
 		void OnUpdate();
 		void OnRender();
+
+		Block& GetBlock(const int& row, const int& col);
 
 	private:
 		void InitBlocks();

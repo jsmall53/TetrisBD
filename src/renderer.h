@@ -55,7 +55,9 @@ namespace TetrisBD
 		
 		std::vector<Color> m_colors // need 7 colors for the different tetrominoes + 1 for default block color
 		{ 
-			{ 15, 15, 75, 255 }
+			{ 15, 15, 75, 255 },
+			{ 7, 203, 247, 255 }, // LIGHT BLUE
+			{ 245, 237, 7, 255 }, // YELLOW
 		}; 
 	};
 }

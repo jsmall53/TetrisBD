@@ -31,6 +31,11 @@ namespace TetrisBD
 		}
 	}
 
+	Block& Playfield::GetBlock(const int& row, const int& col)
+	{
+		return m_matrix[row][col];
+	}
+
 	void Playfield::InitBlocks()
 	{
 		Renderer* pRenderer = Application::GetRenderer();
