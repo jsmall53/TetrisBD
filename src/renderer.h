@@ -37,8 +37,10 @@ namespace TetrisBD
 		void RenderRect(const int& x, const int& y, const int& width, const int& height, const int& colorId);
 		void RenderRect(const int& x, const int& y, const int& width, const int& height, const Color& color);
 		void RenderBlock(const Block& block);
+		void RenderText(const char* text, const int& x, const int& y);
 
 		SectionRect GetPlayfieldRect();
+		SectionRect GetPreviewRect();
 		int GetScoreViewOffset();
 		int GetPlayFieldOffset();
 		int GetPreviewOffset();

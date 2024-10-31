@@ -3,11 +3,6 @@
 
 namespace TetrisBD
 {
-	void Playfield::Init()
-	{
-		InitBlocks();
-	}
-
 	void Playfield::OnUpdate()
 	{
 
@@ -17,7 +12,6 @@ namespace TetrisBD
 	{
 		Renderer* pRenderer = Application::GetRenderer();
 
-		// TODO; fix default rendering color and color instantiation here...
 		auto rect = pRenderer->GetPlayfieldRect();
 		pRenderer->RenderRect(rect.x, rect.y, rect.width, rect.height, 0);
 		for (int row = 0; row < 20; row++)
@@ -49,6 +43,42 @@ namespace TetrisBD
 		if (row > m_rowMax || col < 0 || col > m_colMax)
 			return false;
 		return m_matrix[row][col].colorId == BlockColor::Default;
+	}
+
+	uint32_t Playfield::ClearLines()
+	{
+		uint32_t linesCleared = 0;
+		for (int row = 0; row <= m_rowMax; row++)
+		{
+			bool rowFull = true;
+			for (int col = 0; col <= m_colMax; col++)
+			{
+				if (IsBlockEmpty(row, col))
+				{
+					rowFull = false;
+					break;
+				}
+			}
+
+			if (rowFull)
+			{
+				ClearLine(row);
+				linesCleared++;
+			}
+		}
+
+		return linesCleared;
+	}
+
+	void Playfield::ClearLine(int row)
+	{
+		for (int rowClear = row; rowClear > 0; rowClear--)
+		{
+			for (int col = 0; col <= m_colMax; col++)
+			{
+				m_matrix[rowClear][col].colorId = m_matrix[rowClear - 1][col].colorId;
+			}
+		}
 	}
 
 	void Playfield::InitBlocks()

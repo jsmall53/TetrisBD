@@ -7,7 +7,6 @@ namespace TetrisBD
 	class Playfield
 	{
 	public:
-		void Init();
 		void OnUpdate();
 		void OnRender();
 		void Reset();
@@ -15,9 +14,11 @@ namespace TetrisBD
 		void SetBlock(const int& row, const int& col, const BlockColor& colorId);
 		Block& GetBlock(const int& row, const int& col);
 		bool IsBlockEmpty(const int& row, const int& col) const;
+		uint32_t ClearLines();
 
 	private:
 		void InitBlocks();
+		void ClearLine(int row);
 		// 10 cells wide and 20 cells tall, with an additional 20 cell buffer zone 
 		// above the top of the playfield, usually hidden or obstructed by the field frame.
 		Block m_matrix[40][10];

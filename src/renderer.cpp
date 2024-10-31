@@ -42,14 +42,19 @@ namespace TetrisBD
 		RenderRect(block.x, block.y, block.size - 1, block.size - 1, m_colors[(int)colorId]);
 	}
 
+	void Renderer::RenderText(const char* text, const int& x, const int& y)
+	{
+		ImageDrawText(&m_image, text, x, y, 15, RAYWHITE);
+	}
+
 	SectionRect Renderer::GetPlayfieldRect()
 	{
-		SectionRect section;
-		section.width = (int)(m_ctx.Width * m_ctx.PlayFieldRatio);
-		section.height = m_ctx.Height;
-		section.x = GetPlayFieldOffset();
-		section.y = 0;
-		return section;
+		return { GetPlayFieldOffset(), 0, (int)(m_ctx.Width * m_ctx.PlayFieldRatio), m_ctx.Height };;
+	}
+
+	SectionRect Renderer::GetPreviewRect()
+	{
+		return { GetPreviewOffset(), 0, (int)(m_ctx.Width * m_ctx.PreviewRatio), m_ctx.Height };
 	}
 
 	int Renderer::GetScoreViewOffset()
@@ -63,5 +68,13 @@ namespace TetrisBD
 		int scoreViewWidth = (int)(m_ctx.Width * m_ctx.ScoreViewRatio);
 		int playfieldOffset = scoreViewOffset + scoreViewWidth + m_ctx.BorderWidth;
 		return playfieldOffset;
+	}
+
+	int Renderer::GetPreviewOffset()
+	{
+		int playfieldOffset = GetPlayFieldOffset();
+		int playfieldWidth = (int)(m_ctx.Width * m_ctx.PlayFieldRatio);
+		int previewOffset = playfieldOffset + playfieldWidth + m_ctx.BorderWidth;
+		return previewOffset;
 	}
 }

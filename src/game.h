@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+#include "renderer.h"
 #include "playfield.h"
 #include "tetromino.h"
 #include "timer.h"
@@ -19,14 +21,17 @@ namespace TetrisBD
 
 		void OnUpdate();
 		void OnRender();
+		void Reset();
 
 	private:
+		void RenderCurrentTetromino(Renderer* pRenderer);
+		void RenderNextTetromino(Renderer* pRenderer);
 		PositionState GetStartingPositionState(TetrominoType type);
 		void MoveTetrominoDown();
 		void MoveTetrominoLeft();
 		void MoveTetriminoRight();
 		void RotateTetromino();
-		bool CanBlockMove(int row, int col);
+		bool ValidatePosition(const PositionState& position);
 		void LockTetromino();
 		TetrominoType RandomTetromino();
 
@@ -36,5 +41,9 @@ namespace TetrisBD
 		TetrominoType m_nextTetromino = TetrominoType::None;
 		int m_rotation = 0;
 		Timer m_gravTimer;
+		Timer m_inputTimer;
+		bool m_gameOver = false;
+
+		std::mt19937 m_randomGen;
 	};
 }
