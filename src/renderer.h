@@ -34,6 +34,7 @@ namespace TetrisBD
 
 		void Update();
 		void RenderNoise();
+		void RenderRect(const int& x, const int& y, const int& width, const int& height, const int& colorId);
 		void RenderRect(const int& x, const int& y, const int& width, const int& height, const Color& color);
 		void RenderBlock(const Block& block);
 
@@ -58,6 +59,11 @@ namespace TetrisBD
 			{ 15, 15, 75, 255 },
 			{ 7, 203, 247, 255 }, // LIGHT BLUE
 			{ 245, 237, 7, 255 }, // YELLOW
+			{ 210, 7, 237, 255 }, // PURPLE
+			{ 50, 199, 52, 255 }, // GREEN
+			{ 255, 0, 0, 255 }, // RED
+			{ 66, 26, 161, 255 }, // BLUE
+			{ 245, 137, 5, 255 }, // ORANGE
 		}; 
 	};
 }

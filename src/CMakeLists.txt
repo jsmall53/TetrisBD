@@ -13,7 +13,7 @@ set(SOURCES
 	"tetromino.cpp"
 
 )
-add_executable (TetrisBD ${SOURCES})
+add_executable (TetrisBD ${SOURCES} "timer.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TetrisBD PROPERTY CXX_STANDARD 20)

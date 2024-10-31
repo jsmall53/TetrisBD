@@ -3,7 +3,7 @@
 
 namespace TetrisBD
 {
-	Tetromino::Tetromino(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, TetrominoType type, uint32_t colorId)
+	Tetromino::Tetromino(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, TetrominoType type, BlockColor colorId)
 		:m_type(type), m_colorId(colorId)
 	{
 		m_blocks[0] = v1;
