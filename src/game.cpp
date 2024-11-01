@@ -5,8 +5,7 @@ namespace TetrisBD
 {
 	Game::Game()
 	{
-		std::random_device rd;
-		m_randomGen = std::mt19937(rd());
+		
 		Reset();
 	}
 
@@ -26,7 +25,7 @@ namespace TetrisBD
 		}
 		if (IsKeyPressed(KEY_UP))
 			RotateTetromino();
-		else if (m_inputTimer.ElapsedMillis() >= 100)
+		else if (m_inputTimer.ElapsedMillis() >= 85)
 		{
 			m_inputTimer.Reset();
 			if (IsKeyDown(KEY_LEFT))
@@ -78,14 +77,12 @@ namespace TetrisBD
 	void Game::Reset()
 	{
 		m_playfield.Reset();
-		m_currentTetromino = RandomTetromino();
-		m_nextTetromino = RandomTetromino();
+		m_currentTetromino = m_playfield.GetNext();
 		m_position = GetStartingPositionState(m_currentTetromino);
 		m_gravTimer.Reset();
 		m_inputTimer.Reset();
 		
 		m_gameOver = false;
-		m_rotation = 0;
 	}
 
 	PositionState Game::GetStartingPositionState(TetrominoType type)
@@ -93,17 +90,17 @@ namespace TetrisBD
 		switch (type)
 		{
 		case TetrominoType::I:
-			return { -1, 3 };
+			return { -1, 3, 0 };
 		case TetrominoType::O:
-			return { 0, 4 };
+			return { 0, 4, 0 };
 		case TetrominoType::T:
 		case TetrominoType::S:
 		case TetrominoType::Z:
 		case TetrominoType::J:
 		case TetrominoType::L:
-			return { 0, 3 };
+			return { 0, 3, 0 };
 		default: // ::None
-			return { 0, 0 };
+			return { 0, 0, 0 };
 		}
 	}
 
@@ -143,16 +140,42 @@ namespace TetrisBD
 
 	void Game::RotateTetromino()
 	{
-		m_rotation = (m_rotation + 1) % 4;
+		PositionState newPos = m_position;
+		newPos.rotation = (newPos.rotation + 1) % 4;
+		if (!ValidatePosition(newPos))
+		{
+			 // first check if we can move down, if not return and do nothing, lock coming soon;
+			newPos = m_position;
+			newPos.row++;
+			if (!ValidatePosition(newPos))
+				return;
+			
+			// next check if we can move left, if not
+			int adjustment = 1;
+			if (m_position.col > 5)
+			{
+				adjustment = -1;
+			}
+
+			while (!ValidatePosition(m_position))
+			{
+				m_position.col += adjustment;
+			}
+			return;
+
+			// then check if we can move right.
+
+		}
+
 		while (!ValidatePosition(m_position))
 		{
 			if (m_position.col < 5) // close to left wall
 			{
-				MoveTetriminoRight();
+				m_position.col++;
 			}
 			else // closer to right wall
 			{
-				MoveTetrominoLeft();
+				m_position.col--;
 			}
 		}
 	}
@@ -167,11 +190,10 @@ namespace TetrisBD
 			m_playfield.SetBlock((m_position.row + (int)offset.x), (m_position.col + (int)offset.y), colorId);
 		}
 
-		m_currentTetromino = m_nextTetromino;
+		m_currentTetromino = m_playfield.GetNext();
 		m_position = GetStartingPositionState(m_currentTetromino);
 		m_rotation = 0;
 
-		m_nextTetromino = RandomTetromino();
 		if (!ValidatePosition(m_position))
 		{
 			m_gameOver = true;
@@ -181,17 +203,10 @@ namespace TetrisBD
 		// TODO: update the score
 	}
 
-	TetrominoType Game::RandomTetromino()
-	{
-		int min = (int)(TetrominoType::None) + 1;
-		int max = (int)(TetrominoType::Max) - 1;
-		std::uniform_int_distribution<int> dist(min, max);
-		return (TetrominoType)dist(m_randomGen);
-	}
-
+	
 	bool Game::ValidatePosition(const PositionState& position)
 	{
-		const Tetromino& tetrInPlay = Tetrominoes::Tetrominoes[(int)m_currentTetromino][m_rotation];
+		const Tetromino& tetrInPlay = Tetrominoes::Tetrominoes[(int)m_currentTetromino][position.rotation];
 		for (int i = 0; i < 4; i++)
 		{
 			Vector2 offset = tetrInPlay.GetBlockOffset(i);
@@ -217,20 +232,6 @@ namespace TetrisBD
 
 	void Game::RenderNextTetromino(Renderer* pRenderer)
 	{
-		//SectionRect previewRect = pRenderer->GetPreviewRect();
-		//const Tetromino& nextTetr = Tetrominoes::Tetrominoes[(int)m_nextTetromino][0];
-		//Block anchor;
-		//int xPos = previewRect.x + (previewRect.width / 3);
-		//int yPos = previewRect.y + (previewRect.height * 0.6f);
-		//BlockColor colorId = nextTetr.GetColorId();
-		//
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	Vector2 offset = nextTetr.GetBlockOffset(i);
-		//	int row = offset.x;
-		//	int col = offset.y;
-		//	Block anchor { size, 500 + xPos, 150 + yPos,  };
-		//	pRenderer->RenderBlock(anchor);
-		//}
+		
 	}
 }

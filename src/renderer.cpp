@@ -26,7 +26,7 @@ namespace TetrisBD
 
 	void Renderer::RenderRect(const int& x, const int& y, const int& width, const int& height, const int& colorId)
 	{
-		RenderRect(x, y, width, height, m_colors[colorId]);
+		RenderRect(x, y, width, height, m_tetrColors[colorId]);
 	}
 
 	void Renderer::RenderRect(const int& x, const int& y, const int& width, const int& height, const Color& color)
@@ -37,9 +37,9 @@ namespace TetrisBD
 	void Renderer::RenderBlock(const Block& block)
 	{
 		BlockColor colorId = block.colorId;
-		if ((int)colorId > m_colors.size())
+		if ((int)colorId > m_tetrColors.size())
 			colorId = BlockColor::Default;
-		RenderRect(block.x, block.y, block.size - 1, block.size - 1, m_colors[(int)colorId]);
+		RenderRect(block.x + 1, block.y + 1, block.size - 1, block.size - 1, m_tetrColors[(int)colorId]);
 	}
 
 	void Renderer::RenderText(const char* text, const int& x, const int& y)
