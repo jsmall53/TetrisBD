@@ -22,6 +22,9 @@ namespace TetrisBD
 		uint32_t ClearLines();
 
 	private:
+		static const int m_pfColorId = 8;
+
+	private:
 		void InitBlocks();
 		void ClearLine(int row);
 		void RenderPlayfield(Renderer* pRenderer);
@@ -35,7 +38,5 @@ namespace TetrisBD
 		int m_colMax = 9;
 		TetrominoType m_nextTetromino = TetrominoType::None;
 		std::mt19937 m_randomGen;
-
-		Color m_pfColor = { 15, 15, 75, 255 };
 	};
 }

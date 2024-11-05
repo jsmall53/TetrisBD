@@ -25,10 +25,10 @@ namespace TetrisBD
 	void Playfield::RenderPlayfield(Renderer* pRenderer)
 	{
 		auto rect = pRenderer->GetPlayfieldRect();
-		pRenderer->RenderRect(rect.x, rect.y, rect.width, rect.height, m_pfColor);
+		pRenderer->RenderRect(rect.x, rect.y, rect.width, rect.height, m_pfColorId);
 
 		const Block& reference = m_matrix[0][0];
-		pRenderer->RenderRect(reference.x, reference.y, (reference.size * 10) + 1, (reference.size * 20) + 1, m_pfColor);
+		pRenderer->RenderRect(reference.x, reference.y, (reference.size * 10) + 1, (reference.size * 20) + 1, m_pfColorId);
 
 		for (int row = 0; row < 20; row++)
 		{
@@ -43,8 +43,8 @@ namespace TetrisBD
 	{
 		SectionRect previewRect = pRenderer->GetPreviewRect();
 		previewRect.height /= 3;
-		pRenderer->RenderRect(previewRect.x, previewRect.y, previewRect.width, previewRect.height, m_pfColor);
-		const Tetromino& nextTetr = Tetrominoes::Tetrominoes[(int)m_nextTetromino][0];
+		pRenderer->RenderRect(previewRect.x, previewRect.y, previewRect.width, previewRect.height, m_pfColorId);
+		const Tetromino& nextTetr = Tetrominoes::GetTetromino(m_nextTetromino, 0);;
 		Block anchor;
 		int xPos = previewRect.x + (previewRect.width / 3);
 		int yPos = previewRect.y + (previewRect.height * 0.4f);
@@ -53,8 +53,8 @@ namespace TetrisBD
 		for (int i = 0; i < 4; i++)
 		{
 			Vector2 offset = nextTetr.GetBlockOffset(i);
-			int row = offset.x;
-			int col = offset.y;
+			int row = (int)offset.x;
+			int col = (int)offset.y;
 			anchor.x = xPos + (col * anchor.size);
 			anchor.y = yPos + (row * anchor.size);
 			pRenderer->RenderBlock(anchor);

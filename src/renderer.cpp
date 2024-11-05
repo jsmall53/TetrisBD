@@ -37,7 +37,7 @@ namespace TetrisBD
 	void Renderer::RenderBlock(const Block& block)
 	{
 		BlockColor colorId = block.colorId;
-		if ((int)colorId > m_tetrColors.size())
+		if ((int)colorId > m_numColors)
 			colorId = BlockColor::Default;
 		RenderRect(block.x + 1, block.y + 1, block.size - 1, block.size - 1, m_tetrColors[(int)colorId]);
 	}
@@ -55,6 +55,11 @@ namespace TetrisBD
 	SectionRect Renderer::GetPreviewRect()
 	{
 		return { GetPreviewOffset(), 0, (int)(m_ctx.Width * m_ctx.PreviewRatio), m_ctx.Height };
+	}
+
+	SectionRect Renderer::GetScoreRect()
+	{
+		return { GetScoreViewOffset(), 0, (int)(m_ctx.Width * m_ctx.ScoreViewRatio), m_ctx.Height };
 	}
 
 	int Renderer::GetScoreViewOffset()

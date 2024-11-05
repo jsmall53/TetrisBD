@@ -42,72 +42,55 @@ namespace TetrisBD
 
 	namespace Tetrominoes
 	{
-		inline std::vector<Tetromino> ITetromino = 
+		inline Tetromino Tetrominoes[] =
 		{
+			// I
 			Tetromino({ 1, 0 }, { 1, 1 }, { 1, 2 }, { 1, 3 }, TetrominoType::I, BlockColor::LightBlue),
 			Tetromino({ 0, 2 }, { 1, 2 }, { 2, 2 }, { 3, 2 }, TetrominoType::I, BlockColor::LightBlue),
 			Tetromino({ 2, 0 }, { 2, 1 }, { 2, 2 }, { 2, 3 }, TetrominoType::I, BlockColor::LightBlue),
 			Tetromino({ 0, 1 }, { 1, 1 }, { 2, 1 }, { 3, 1 }, TetrominoType::I, BlockColor::LightBlue),
-		};
 
-		inline std::vector<Tetromino> OTetromino =
-		{
+			// O
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 }, TetrominoType::O, BlockColor::Yellow),
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 }, TetrominoType::O, BlockColor::Yellow),
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 }, TetrominoType::O, BlockColor::Yellow),
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 }, TetrominoType::O, BlockColor::Yellow),
-		};
-
-		inline std::vector<Tetromino> TTetromino = 
-		{
+		
+			// T
 			Tetromino({ 0, 1 }, { 1, 0 }, { 1, 1 }, { 1, 2 }, TetrominoType::T, BlockColor::Purple),
 			Tetromino({ 0, 1 }, { 1, 1 }, { 1, 2 }, { 2, 1 }, TetrominoType::T, BlockColor::Purple),
 			Tetromino({ 1, 0 }, { 1, 1 }, { 1, 2 }, { 2, 1 }, TetrominoType::T, BlockColor::Purple),
 			Tetromino({ 0, 1 }, { 1, 0 }, { 1, 1 }, { 2, 1 }, TetrominoType::T, BlockColor::Purple),
-		};
-
-		inline std::vector<Tetromino> STetromino = 
-		{
+			
+			// S
 			Tetromino({ 0, 1 }, { 0, 2 }, { 1, 0 }, { 1, 1 }, TetrominoType::S, BlockColor::Green),
 			Tetromino({ 0, 1 }, { 1, 1 }, { 1, 2 }, { 2, 2 }, TetrominoType::S, BlockColor::Green),
 			Tetromino({ 1, 1 }, { 1, 2 }, { 2, 0 }, { 2, 1 }, TetrominoType::S, BlockColor::Green),
 			Tetromino({ 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 1 }, TetrominoType::S, BlockColor::Green),
-		};
-
-		inline std::vector<Tetromino> ZTetromino = 
-		{
+		
+			// Z
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 1 }, { 1, 2 }, TetrominoType::Z, BlockColor::Red),
 			Tetromino({ 0, 2 }, { 1, 1 }, { 1, 2 }, { 2, 1 }, TetrominoType::Z, BlockColor::Red),
 			Tetromino({ 1, 0 }, { 1, 1 }, { 2, 1 }, { 2, 2 }, TetrominoType::Z, BlockColor::Red),
 			Tetromino({ 0, 1 }, { 1, 0 }, { 1, 1 }, { 2, 0 }, TetrominoType::Z, BlockColor::Red),
-		};
-
-		inline std::vector<Tetromino> JTetromino = 
-		{
+		
+			// J
 			Tetromino({ 0, 0 }, { 1, 0 }, { 1, 1 }, { 1, 2 }, TetrominoType::J, BlockColor::Blue),
 			Tetromino({ 0, 1 }, { 0, 2 }, { 1, 1 }, { 2, 1 }, TetrominoType::J, BlockColor::Blue),
 			Tetromino({ 1, 0 }, { 1, 1 }, { 1, 2 }, { 2, 2 }, TetrominoType::J, BlockColor::Blue),
 			Tetromino({ 0, 1 }, { 1, 1 }, { 2, 0 }, { 2, 1 }, TetrominoType::J, BlockColor::Blue),
-		};
-
-		inline std::vector<Tetromino> LTetromino = 
-		{
+		
+			// L
 			Tetromino({ 0, 2 }, { 1, 0 }, { 1, 1 }, { 1, 2 }, TetrominoType::L, BlockColor::Orange),
 			Tetromino({ 0, 1 }, { 1, 1 }, { 2, 1 }, { 2, 2 }, TetrominoType::L, BlockColor::Orange),
 			Tetromino({ 1, 0 }, { 1, 1 }, { 1, 2 }, { 2, 0 }, TetrominoType::L, BlockColor::Orange),
 			Tetromino({ 0, 0 }, { 0, 1 }, { 1, 1 }, { 2, 1 }, TetrominoType::L, BlockColor::Orange),
 		};
 
-		inline std::vector<std::vector<Tetromino>> Tetrominoes =
+		inline Tetromino GetTetromino(const TetrominoType& type, const int& rotation)
 		{
-			std::vector<Tetromino>(), // empty for TetrominoType == 0
-			ITetromino,
-			OTetromino,
-			TTetromino,
-			STetromino,
-			ZTetromino,
-			JTetromino,
-			LTetromino,
-		};
+			return Tetrominoes[(((int)type - 1) * 4) + rotation];
+		}
+
 	}
 }

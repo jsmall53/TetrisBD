@@ -24,8 +24,10 @@ namespace TetrisBD
 		void Reset();
 
 	private:
+		static inline uint64_t s_linesPerLevel = 10;
+	private:
 		void RenderCurrentTetromino(Renderer* pRenderer);
-		void RenderNextTetromino(Renderer* pRenderer);
+		void RenderScore(Renderer* pRenderer);
 		PositionState GetStartingPositionState(TetrominoType type);
 		void MoveTetrominoDown();
 		void MoveTetrominoLeft();
@@ -33,6 +35,8 @@ namespace TetrisBD
 		void RotateTetromino();
 		bool ValidatePosition(const PositionState& position);
 		void LockTetromino();
+		void UpdateScore(uint32_t linesCleared);
+		void DropAndLock();
 		
 		Playfield m_playfield;
 		PositionState m_position;
@@ -40,5 +44,8 @@ namespace TetrisBD
 		Timer m_gravTimer;
 		Timer m_inputTimer;
 		bool m_gameOver = false;
+		uint64_t m_score = 0;
+		uint64_t m_linesCleared = 0;
+		uint64_t m_level = 0;
 	};
 }
